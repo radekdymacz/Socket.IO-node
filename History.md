@@ -136,3 +136,4 @@ http://www.lightsphere.com/dev/articles/flash_socket_policy.html
     - Implemented new message encoder/decoder with annotations support
 * Added `tests.js` set of testing helpers
 * Added `.json()` and `.broadcastJSON()` to send and brodcast messages in JSON. For just encoding objects as json you can continue to use `.send({ your: 'object' })`, but if you wish to force the JSON encoding of other types (like Number), use `.json`
+* Tests for JSONP-Polling and cross-domain allowance

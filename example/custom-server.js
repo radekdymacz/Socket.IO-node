@@ -83,8 +83,12 @@ function get_dsclients() {
         });
 
         response.addListener("end", function() {
-            dsclients = JSON.parse(body);
-             sys.puts("got dsclients");
+           var _dsclients = JSON.parse(body);
+            if(_dsclients.length > 0) {
+               // api_emitter.emit("clients", clients);
+                                                                sys.puts("got dsclients");
+                                                        dsclients = _dsclients;
+            }
         });
     });
 
@@ -102,8 +106,12 @@ function get_backupsets() {
         });
 
         response.addListener("end", function() {
-            backupsets = JSON.parse(body);
-             sys.puts("got backupsets");
+           var _bs = JSON.parse(body);
+            if(_bs.length > 0) {
+               // api_emitter.emit("clients", clients);
+                                                                sys.puts("got backupsets");
+                                                        backupsets = _bs;
+            }
         });
     });
 

@@ -79,7 +79,7 @@ https.get({ host:api_server_name, path: '/api/ob/client/2/202cb962ac59075b964b07
    
   response.on('data', function(d) {
    // accounts = JSON.parse(d); 
-   body += data;  
+   body += d;  
   });
   response.on('end', function(d) {
      var clients = JSON.parse(body);  

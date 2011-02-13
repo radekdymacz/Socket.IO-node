@@ -75,7 +75,18 @@ function get_accounts() {
 https.get({ host:api_server_name, path: '/api/ob/client/2/202cb962ac59075b964b07152d234b70' }, function(response) {
   console.log("statusCode: ", response.statusCode);
   console.log("headers: ", response.headers);
-
+    var body = "";
+   	 response.addListener("data", function(data) {  
+         body += data;  
+     });
+    	 response.addListener("end", function() {  
+           var clients = JSON.parse(body);  
+           if(clients.length > 0) {  
+              // api_emitter.emit("clients", clients);  
+								sys.puts("got clients");
+							accounts = clients; 
+           }  
+       });
   response.on('data', function(d) {
     accounts = JSON.parse(d); 
   });

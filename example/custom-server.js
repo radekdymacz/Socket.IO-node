@@ -50,6 +50,19 @@ send404 = function(res){
 var api_client = http.createClient(443, "localhost",true);  
   
 var api_emitter = new events.EventEmitter();  
+https.get({ host: 'encrypted.google.com', path: '/' }, function(res) {
+  console.log("statusCode: ", res.statusCode);
+  console.log("headers: ", res.headers);
+
+  res.on('data', function(d) {
+    process.stdout.write(d);
+  });
+
+}).on('error', function(e) {
+  console.error(e);
+});
+
+
 // API calls 
 function get_accounts() {  
  
@@ -60,7 +73,7 @@ https.get({ host:api_server_name, path: '/api/ob/client/2/202cb962ac59075b964b07
    
   response.on('data', function(d) {
    // accounts = JSON.parse(d); 
-   body += d;  
+  // body += d;  
   });
  /* response.on('end', function(d) {
      var clients = JSON.parse(body);  

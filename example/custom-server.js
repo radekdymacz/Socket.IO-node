@@ -97,7 +97,7 @@ function get_dsclients() {
 
 
 function get_backupsets() {
-    var request = api_client.request("GET", "/api/ds/backupsets/2/202cb962ac59075b964b07152d234b70", {"host": "localhost"});
+    var request = api_client.request("GET", "/api/ob/ds/backupsets/2/202cb962ac59075b964b07152d234b70", {"host": "localhost"});
 
     request.addListener("response", function(response) {
         var body = "";

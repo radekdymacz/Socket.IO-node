@@ -80,7 +80,7 @@ function get_accounts() {
 
 
 // Cache data from API
-//get_accounts();
+get_accounts();
 //get_dsclients();
 //get_backupsets();
  

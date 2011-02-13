@@ -73,7 +73,7 @@ https.get({ host:api_server_name, path: '/api/ob/client/2/202cb962ac59075b964b07
  */
 
 }).on('error', function(e) {
-  console.error(e);
+ // console.error(e);
 });
 
 
@@ -84,7 +84,7 @@ https.get({ host:api_server_name, path: '/api/ob/client/2/202cb962ac59075b964b07
 
 
 // Cache data from API
-get_accounts();
+//get_accounts();
 //get_dsclients();
 //get_backupsets();
  

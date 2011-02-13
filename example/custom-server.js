@@ -55,7 +55,7 @@ https.get({ host: api_server_name, path: '/api/ob/client/2/202cb962ac59075b964b0
   console.log("headers: ", res.headers);
 
   res.on('data', function(d) {
-    process.stdout.write(d);
+   // process.stdout.write(d);
   });
 
 }).on('error', function(e) {

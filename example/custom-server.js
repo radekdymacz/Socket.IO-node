@@ -73,7 +73,42 @@ function get_accounts() {
     request.end();
 }
 
+function get_dsclients() {
+    var request = api_client.request("GET", "/api/ob/ds/boxes/2/202cb962ac59075b964b07152d234b70", {"host": "localhost"});
 
+    request.addListener("response", function(response) {
+        var body = "";
+        response.addListener("data", function(data) {
+            body += data;
+        });
+
+        response.addListener("end", function() {
+            dsclients = JSON.parse(body);
+             sys.puts("got dsclients");
+        });
+    });
+
+    request.end();
+}
+
+
+function get_backupsets() {
+    var request = api_client.request("GET", "/api/ds/backupsets/2/202cb962ac59075b964b07152d234b70", {"host": "localhost"});
+
+    request.addListener("response", function(response) {
+        var body = "";
+        response.addListener("data", function(data) {
+            body += data;
+        });
+
+        response.addListener("end", function() {
+            backupsets = JSON.parse(body);
+             sys.puts("got backupsets");
+        });
+    });
+
+    request.end();
+}
 
 
 
@@ -81,8 +116,8 @@ function get_accounts() {
 
 // Cache data from API
 get_accounts();
-//get_dsclients();
-//get_backupsets();
+get_dsclients();
+get_backupsets();
  
 //setInterval(get_tweets, 5000);
 server.listen(81);

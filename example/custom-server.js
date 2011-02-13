@@ -47,61 +47,33 @@ send404 = function(res){
 
 
 
-var api_client = http.createClient(443, "localhost",true);  
+var api_client = http.createClient(4001, "localhost");  
   
-var https = require('https');
+var api_emitter = new events.EventEmitter();
+// API calls
+function get_accounts() {
+    var request = api_client.request("GET", "/api/ob/client/2/202cb962ac59075b964b07152d234b70", {"host": "localhost"});
 
-var options = {
-  host: 'localhost',
-  port: 443,
-  path: '/',
-  method: 'GET'
-};
+    request.addListener("response", function(response) {
+        var body = "";
+        response.addListener("data", function(data) {
+            body += data;
+        });
 
-var req = https.request(options, function(res) {
-  console.log("statusCode: ", res.statusCode);
-  console.log("headers: ", res.headers);
+        response.addListener("end", function() {
+            var clients = JSON.parse(body);
+            if(clients.length > 0) {
+               // api_emitter.emit("clients", clients);
+                                                                sys.puts("got clients");
+                                                        accounts = clients;
+            }
+        });
+    });
 
-  res.on('data', function(d) {
-    process.stdout.write(d);
-  });
-});
-req.end();
-
-req.on('error', function(e) {
-  console.error(e);
-});
-
-
-
-// API calls 
-function get_accounts() {  
- 
-https.get({ host:api_server_name, path: '/api/ob/client/2/202cb962ac59075b964b07152d234b70' }, function(response) {
-//  console.log("statusCode: ", response.statusCode);
-  //console.log("headers: ", response.headers);
-    var body = "";
-   
-  response.on('data', function(d) {
-   // accounts = JSON.parse(d); 
-  // body += d;  
-  });
- /* response.on('end', function(d) {
-     var clients = JSON.parse(body);  
-     if(clients.length > 0) {  
-        // api_emitter.emit("clients", clients);  
-					sys.puts("got clients");
-				accounts = clients; 
-     }
-  });
- */
-
-}).on('error', function(e) {
- // console.error(e);
-});
-
-
+    request.end();
 }
+
+
 
 
 

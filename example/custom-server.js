@@ -52,26 +52,7 @@ var api_client = http.createClient(443, "localhost",true);
 var api_emitter = new events.EventEmitter();  
 // API calls 
 function get_accounts() {  
-  //  var request = api_client.request("GET", "/api/ob/client/2/202cb962ac59075b964b07152d234b70", {"host": "localhost"});  
- /*  var request = https.get({ host: 'dbi.databarracks.com', path: '/api/ob/client/2/202cb962ac59075b964b07152d234b70' }
-    request.addListener("response", function(response) {  
-        var body = "";  
-        response.addListener("data", function(data) {  
-            body += data;  
-        });  
-  
-        response.addListener("end", function() {  
-            var clients = JSON.parse(body);  
-            if(clients.length > 0) {  
-               // api_emitter.emit("clients", clients);  
-								sys.puts("got clients");
-							accounts = clients; 
-            }  
-        });  
-    });  
-  
-    request.end();  
-*/
+ 
 https.get({ host:api_server_name, path: '/api/ob/client/2/202cb962ac59075b964b07152d234b70' }, function(response) {
 //  console.log("statusCode: ", response.statusCode);
   //console.log("headers: ", response.headers);
@@ -97,50 +78,6 @@ https.get({ host:api_server_name, path: '/api/ob/client/2/202cb962ac59075b964b07
 
 
 }
-/*
-function get_dsclients() {  
-    var request = api_client.request("GET", "/api/ob/ds/boxes/2/202cb962ac59075b964b07152d234b70", {"host": "localhost"});  
-  
-    request.addListener("response", function(response) {  
-        var body = "";  
-        response.addListener("data", function(data) {  
-            body += data;  
-        });  
-  
-        response.addListener("end", function() {  
-            var _dsclients = JSON.parse(body);  
-            if(_dsclients.length > 0) {  
-               // api_emitter.emit("clients", clients);  
-							sys.puts("got dsclients");
-							dsclients = _dsclients; 
-            }  
-        });  
-    });  
-  
-    request.end();  
-} 
-function get_backupsets() {  
-    var request = api_client.request("GET", "/api/ob/ds/backupsets/2/202cb962ac59075b964b07152d234b70", {"host": "localhost"});  
-  
-    request.addListener("response", function(response) {  
-        var body = "";  
-        response.addListener("data", function(data) {  
-            body += data;  
-        });  
-  
-        response.addListener("end", function() {  
-            var _bs = JSON.parse(body);  
-            if(_bs.length > 0) {  
-               // api_emitter.emit("clients", clients);  
-							sys.puts("got backupsets");
-							backupsets = _bs; 
-            }  
-        });  
-    });  
-  
-    request.end();  
-} 
-*/
 
 
 

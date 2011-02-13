@@ -49,18 +49,29 @@ send404 = function(res){
 
 var api_client = http.createClient(443, "localhost",true);  
   
-var api_emitter = new events.EventEmitter();  
-https.get({ host: api_server_name, path: '/api/ob/client/2/202cb962ac59075b964b07152d234b70' }, function(res) {
+var https = require('https');
+
+var options = {
+  host: 'encrypted.google.com',
+  port: 443,
+  path: '/',
+  method: 'GET'
+};
+
+var req = https.request(options, function(res) {
   console.log("statusCode: ", res.statusCode);
   console.log("headers: ", res.headers);
 
   res.on('data', function(d) {
-   // process.stdout.write(d);
+    process.stdout.write(d);
   });
+});
+req.end();
 
-}).on('error', function(e) {
+req.on('error', function(e) {
   console.error(e);
 });
+
 
 
 // API calls 

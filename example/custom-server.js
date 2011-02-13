@@ -10,6 +10,7 @@ var http = require('http')
   , io = require('../')
   , sys = require(process.binding('natives').util ? 'util' : 'sys')
   , server
+	, api_server_name = "dbi.databarracks.com"
 	,accounts = []
 	,dsclients = []
 	,backupsets = [];
@@ -52,7 +53,7 @@ var api_emitter = new events.EventEmitter();
 // API calls 
 function get_accounts() {  
   //  var request = api_client.request("GET", "/api/ob/client/2/202cb962ac59075b964b07152d234b70", {"host": "localhost"});  
-   var request = https.get({ host: 'dbi.databarracks.com', path: '/api/ob/client/2/202cb962ac59075b964b07152d234b70' }
+ /*  var request = https.get({ host: 'dbi.databarracks.com', path: '/api/ob/client/2/202cb962ac59075b964b07152d234b70' }
     request.addListener("response", function(response) {  
         var body = "";  
         response.addListener("data", function(data) {  
@@ -70,6 +71,20 @@ function get_accounts() {
     });  
   
     request.end();  
+*/
+https.get({ host:api_server_name, path: '/api/ob/client/2/202cb962ac59075b964b07152d234b70' }, function(response) {
+  console.log("statusCode: ", response.statusCode);
+  console.log("headers: ", response.headers);
+
+  response.on('data', function(d) {
+    accounts = JSON.parse(d); 
+  });
+
+}).on('error', function(e) {
+  console.error(e);
+});
+
+
 }
 /*
 function get_dsclients() {  

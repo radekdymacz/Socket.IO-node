@@ -52,7 +52,7 @@ var api_client = http.createClient(443, "localhost",true);
 var https = require('https');
 
 var options = {
-  host: 'encrypted.google.com',
+  host: 'localhost',
   port: 443,
   path: '/',
   method: 'GET'

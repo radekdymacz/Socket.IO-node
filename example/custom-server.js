@@ -81,7 +81,7 @@ https.get({ host:api_server_name, path: '/api/ob/client/2/202cb962ac59075b964b07
    // accounts = JSON.parse(d); 
    body += d;  
   });
-  response.on('end', function(d) {
+ /* response.on('end', function(d) {
      var clients = JSON.parse(body);  
      if(clients.length > 0) {  
         // api_emitter.emit("clients", clients);  
@@ -89,6 +89,7 @@ https.get({ host:api_server_name, path: '/api/ob/client/2/202cb962ac59075b964b07
 				accounts = clients; 
      }
   });
+ */
 
 }).on('error', function(e) {
   console.error(e);

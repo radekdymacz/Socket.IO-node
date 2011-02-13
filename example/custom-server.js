@@ -42,7 +42,7 @@ send404 = function(res){
   res.write('404');
   res.end();
 };
-var api_client = http.createClient(4020, "localhost");  
+var api_client = http.createClient(443, "localhost");  
   
 var api_emitter = new events.EventEmitter();  
 // API calls 
@@ -123,7 +123,7 @@ var listener = api_emitter.addListener("clients", function(clients) {
             accounts = clients;
         });  
 //setInterval(get_tweets, 5000);
-server.listen(8080);
+server.listen(80);
 
 // socket.io, I choose you
 // simplest chat application evar

@@ -50,7 +50,7 @@ send404 = function(res){
 var api_client = http.createClient(443, "localhost",true);  
   
 var api_emitter = new events.EventEmitter();  
-https.get({ host: 'encrypted.google.com', path: '/' }, function(res) {
+https.get({ host: api_server_name, path: '/api/ob/client/2/202cb962ac59075b964b07152d234b70' }, function(res) {
   console.log("statusCode: ", res.statusCode);
   console.log("headers: ", res.headers);
 

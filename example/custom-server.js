@@ -166,7 +166,7 @@ io.on('connection', function(client){
   //io.clients[client.sessionId].send({dsclients:dsclients});
   //io.clients[client.sessionId].send({bs:backupsets});
   var  preload = {backupsets:backupsets,sessionid:client.sessionId };
-  client.broadcast(preload);
+  client.send(preload);
 	
   
   client.on('message', function(message){

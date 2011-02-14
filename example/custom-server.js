@@ -13,15 +13,15 @@ var http = require('http')
 	,accounts = []
 	,dsclients = []
 	,backupsets = [];
-  var options = {
+ // var options = {
 //          key: fs.readFileSync('/root/cert2/dbi_databarracks_com.key'),
 //          cert: fs.readFileSync('/root/cert2/dbi_databarracks_com.crt')
-        };
+ //       };
    
 server = http.createServer(function(request, response){
   // your normal server code
   sys.log(request.connection.remoteAddress + ": " + request.method + " " + request.url);
-/*
+
 	var proxy = http.createClient(4000,"localhost")
 	  var proxy_request = proxy.request(request.method, request.url, request.headers);
 	  proxy_request.addListener('response', function (proxy_response) {
@@ -41,7 +41,7 @@ server = http.createServer(function(request, response){
 	  });
 	
 	}),
-	*/
+	
   /*
   var path = url.parse(req.url).pathname;
   switch (path){

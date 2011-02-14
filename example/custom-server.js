@@ -177,7 +177,9 @@ io.on('connection', function(client){
 		}
 		if(message.action == "get" && message.recordType == "client"){
 		 //	io.clients[client.sessionId].send({clients:accounts});
-		  var answare = {clients:accounts,dsboxes:dsclients,backupsets:backupsets,sessionid:message.sessionid,name:message.name };
+		  var answare = {clients:accounts,sessionid:message.sessionid,name:message.name };
+		   var answare = {dclients:dsclients,sessionid:message.sessionid,name:message.name };
+		 var answare = {backupsets:backupsets,sessionid:message.sessionid,name:message.name };
 		 client.broadcast(answare);
 		 }
 

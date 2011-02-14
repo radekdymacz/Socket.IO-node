@@ -184,7 +184,7 @@ io.on('connection', function(client){
 
   client.on('disconnect', function(){
     client.broadcast({ announcement: client.sessionId + ' disconnected' });
-		io.connection.destroy();
+	//	io.connection.destroy();
    
    
   });

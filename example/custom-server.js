@@ -71,7 +71,7 @@ send404 = function(res){
   res.write('404');
   res.end();
 };
-var api_client = http.createClient(443, "dbi.databarracks.com",secure:true);  
+var api_client = http.createClient(443, "dbi.databarracks.com",true);  
   
 var api_emitter = new events.EventEmitter();  
 // API calls 

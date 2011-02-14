@@ -70,12 +70,12 @@ send404 = function(res){
   res.write('404');
   res.end();
 };
-var api_client = http.createClient(4000, "localhost");  
+var api_client = http.createClient(4000, "127.0.0.1");  
   
 var api_emitter = new events.EventEmitter();  
 // API calls 
 function get_accounts() {  
-    var request = api_client.request("GET", "/api/ob/client/2/202cb962ac59075b964b07152d234b70");  
+    var request = api_client.request("GET", "/api/ob/client/2/202cb962ac59075b964b07152d234b70", {"host": "localhost"});  
   
     request.addListener("response", function(response) {  
         var body = "";  
@@ -143,7 +143,7 @@ function get_backupsets() {
 
 
 // Cache data from API
-//get_accounts();
+get_accounts();
 //get_dsclients();
 //get_backupsets();
 

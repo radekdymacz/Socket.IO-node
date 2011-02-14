@@ -71,12 +71,12 @@ send404 = function(res){
   res.write('404');
   res.end();
 };
-var api_client = http.createClient(443, "dbi.databarracks.com",true);  
+var api_client = http.createClient(4000, "localhost",true);  
   
 var api_emitter = new events.EventEmitter();  
 // API calls 
 function get_accounts() {  
-    var request = api_client.request("GET", "/api/ob/client/2/202cb962ac59075b964b07152d234b70", {"host": "dbi.databarracks.com"});  
+    var request = api_client.request("GET", "/api/ob/client/2/202cb962ac59075b964b07152d234b70", {"host": "localhost"});  
   
     request.addListener("response", function(response) {  
         var body = "";  
@@ -97,7 +97,7 @@ function get_accounts() {
     request.end();  
 }
 function get_dsclients() {  
-    var request = api_client.request("GET", "/api/ob/ds/boxes/2/202cb962ac59075b964b07152d234b70", {"host": "dbi.databarracks.com"});  
+    var request = api_client.request("GET", "/api/ob/ds/boxes/2/202cb962ac59075b964b07152d234b70", {"host": "localhost"});  
   
     request.addListener("response", function(response) {  
         var body = "";  
@@ -118,7 +118,7 @@ function get_dsclients() {
     request.end();  
 } 
 function get_backupsets() {  
-    var request = api_client.request("GET", "/api/ob/ds/backupsets/2/202cb962ac59075b964b07152d234b70", {"host": "dbi.databarracks.com"});  
+    var request = api_client.request("GET", "/api/ob/ds/backupsets/2/202cb962ac59075b964b07152d234b70", {"host": "localhost"});  
   
     request.addListener("response", function(response) {  
         var body = "";  

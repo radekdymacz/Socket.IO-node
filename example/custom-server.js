@@ -162,7 +162,7 @@ var io = io.listen(server)
 io.on('connection', function(client){
 
   //client.send({ buffer: buffer });
-  io.clients[client.sessionId].send({clients:accounts});
+  //io.clients[client.sessionId].send({clients:accounts});
   //io.clients[client.sessionId].send({dsclients:dsclients});
   //io.clients[client.sessionId].send({bs:backupsets});
   client.broadcast({ announcement: client.sessionId + ' connected' });
@@ -181,5 +181,7 @@ io.on('connection', function(client){
 
   client.on('disconnect', function(){
     client.broadcast({ announcement: client.sessionId + ' disconnected' });
+    self.connection.destroy();
+	    self._onClose();
   });
 });

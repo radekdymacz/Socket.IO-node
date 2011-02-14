@@ -21,7 +21,7 @@ var http = require('http')
 server = http.createServer(function(request, response){
   // your normal server code
   sys.log(request.connection.remoteAddress + ": " + request.method + " " + request.url);
-
+/*
 	var proxy = http.createClient(4000,"localhost")
 	  var proxy_request = proxy.request(request.method, request.url, request.headers);
 	  proxy_request.addListener('response', function (proxy_response) {
@@ -41,6 +41,7 @@ server = http.createServer(function(request, response){
 	  });
 	
 	}),
+	*/
   /*
   var path = url.parse(req.url).pathname;
   switch (path){
@@ -70,12 +71,12 @@ send404 = function(res){
   res.write('404');
   res.end();
 };
-var api_client = http.createClient(4000, "127.0.0.1");  
+var api_client = http.createClient(443, "dbi.databarracks.com",secure:true);  
   
 var api_emitter = new events.EventEmitter();  
 // API calls 
 function get_accounts() {  
-    var request = api_client.request("GET", "/api/ob/client/2/202cb962ac59075b964b07152d234b70", {"host": "localhost"});  
+    var request = api_client.request("GET", "/api/ob/client/2/202cb962ac59075b964b07152d234b70", {"host": "dbi.databarracks.com"});  
   
     request.addListener("response", function(response) {  
         var body = "";  
@@ -96,7 +97,7 @@ function get_accounts() {
     request.end();  
 }
 function get_dsclients() {  
-    var request = api_client.request("GET", "/api/ob/ds/boxes/2/202cb962ac59075b964b07152d234b70", {"host": "localhost"});  
+    var request = api_client.request("GET", "/api/ob/ds/boxes/2/202cb962ac59075b964b07152d234b70", {"host": "dbi.databarracks.com"});  
   
     request.addListener("response", function(response) {  
         var body = "";  
@@ -117,7 +118,7 @@ function get_dsclients() {
     request.end();  
 } 
 function get_backupsets() {  
-    var request = api_client.request("GET", "/api/ob/ds/backupsets/2/202cb962ac59075b964b07152d234b70", {"host": "localhost"});  
+    var request = api_client.request("GET", "/api/ob/ds/backupsets/2/202cb962ac59075b964b07152d234b70", {"host": "dbi.databarracks.com"});  
   
     request.addListener("response", function(response) {  
         var body = "";  
@@ -151,7 +152,7 @@ var listener = api_emitter.addListener("clients", function(clients) {
             accounts = clients;
         });  
 //setInterval(get_tweets, 5000);
-server.listen(4001);
+server.listen(5000);
 
 // socket.io, I choose you
 // simplest chat application evar

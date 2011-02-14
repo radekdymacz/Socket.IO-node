@@ -3,20 +3,45 @@
  */
 
 var http = require('http')
-	, https = require('https')
+	,https = require('https')
   , url = require('url')
   , fs = require('fs')
 	, events = require("events")
   , io = require('../')
   , sys = require(process.binding('natives').util ? 'util' : 'sys')
   , server
-	, api_server_name = "dbi.databarracks.com"
 	,accounts = []
 	,dsclients = []
 	,backupsets = [];
-    
-server = http.createServer(function(req, res){
+  var options = {
+          key: fs.readFileSync('/root/cert2/dbi_databarracks_com.key'),
+          cert: fs.readFileSync('/root/cert2/dbi_databarracks_com.crt')
+        };
+   
+server = https.createServer(function(request, response){
   // your normal server code
+  sys.log(request.connection.remoteAddress + ": " + request.method + " " + request.url);
+
+	var proxy = http.createClient(4001,"localhost")
+	  var proxy_request = proxy.request(request.method, request.url, request.headers);
+	  proxy_request.addListener('response', function (proxy_response) {
+	    proxy_response.addListener('data', function(chunk) {
+	      response.write(chunk, 'binary');
+	    });
+	    proxy_response.addListener('end', function() {
+	      response.end();
+	    });
+	    response.writeHead(proxy_response.statusCode, proxy_response.headers);
+	  });
+	  request.addListener('data', function(chunk) {
+	    proxy_request.write(chunk, 'binary');
+	  });
+	  request.addListener('end', function() {
+	    proxy_request.end();
+	  });
+	
+	}),
+  /*
   var path = url.parse(req.url).pathname;
   switch (path){
     case '/':
@@ -37,86 +62,81 @@ server = http.createServer(function(req, res){
       
     default: send404(res);
   }
-}),
+   */
+
 
 send404 = function(res){
   res.writeHead(404);
   res.write('404');
   res.end();
 };
-
-
-
 var api_client = http.createClient(4001, "localhost");  
   
-var api_emitter = new events.EventEmitter();
-// API calls
-function get_accounts() {
-    var request = api_client.request("GET", "/api/ob/client/2/202cb962ac59075b964b07152d234b70", {"host": "localhost"});
-
-    request.addListener("response", function(response) {
-        var body = "";
-        response.addListener("data", function(data) {
-            body += data;
-        });
-
-        response.addListener("end", function() {
-            var clients = JSON.parse(body);
-            if(clients.length > 0) {
-               // api_emitter.emit("clients", clients);
-                                                                sys.puts("got clients");
-                                                        accounts = clients;
-            }
-        });
-    });
-
-    request.end();
+var api_emitter = new events.EventEmitter();  
+// API calls 
+function get_accounts() {  
+    var request = api_client.request("GET", "/api/ob/client/2/202cb962ac59075b964b07152d234b70");  
+  
+    request.addListener("response", function(response) {  
+        var body = "";  
+        response.addListener("data", function(data) {  
+            body += data;  
+        });  
+  
+        response.addListener("end", function() {  
+            var clients = JSON.parse(body);  
+            if(clients.length > 0) {  
+               // api_emitter.emit("clients", clients);  
+								sys.puts("got clients");
+							accounts = clients; 
+            }  
+        });  
+    });  
+  
+    request.end();  
 }
-
-function get_dsclients() {
-    var request = api_client.request("GET", "/api/ob/ds/boxes/2/202cb962ac59075b964b07152d234b70", {"host": "localhost"});
-
-    request.addListener("response", function(response) {
-        var body = "";
-        response.addListener("data", function(data) {
-            body += data;
-        });
-
-        response.addListener("end", function() {
-           var _dsclients = JSON.parse(body);
-            if(_dsclients.length > 0) {
-               // api_emitter.emit("clients", clients);
-                                                                sys.puts("got dsclients");
-                                                        dsclients = _dsclients;
-            }
-        });
-    });
-
-    request.end();
-}
-
-
-function get_backupsets() {
-    var request = api_client.request("GET", "/api/ob/ds/backupsets/2/202cb962ac59075b964b07152d234b70", {"host": "localhost"});
-
-    request.addListener("response", function(response) {
-        var body = "";
-        response.addListener("data", function(data) {
-            body += data;
-        });
-
-        response.addListener("end", function() {
-           var _bs = JSON.parse(body);
-            if(_bs.length > 0) {
-               // api_emitter.emit("clients", clients);
-                                                                sys.puts("got backupsets");
-                                                        backupsets = _bs;
-            }
-        });
-    });
-
-    request.end();
-}
+function get_dsclients() {  
+    var request = api_client.request("GET", "/api/ob/ds/boxes/2/202cb962ac59075b964b07152d234b70", {"host": "localhost"});  
+  
+    request.addListener("response", function(response) {  
+        var body = "";  
+        response.addListener("data", function(data) {  
+            body += data;  
+        });  
+  
+        response.addListener("end", function() {  
+            var _dsclients = JSON.parse(body);  
+            if(_dsclients.length > 0) {  
+               // api_emitter.emit("clients", clients);  
+							sys.puts("got dsclients");
+							dsclients = _dsclients; 
+            }  
+        });  
+    });  
+  
+    request.end();  
+} 
+function get_backupsets() {  
+    var request = api_client.request("GET", "/api/ob/ds/backupsets/2/202cb962ac59075b964b07152d234b70", {"host": "localhost"});  
+  
+    request.addListener("response", function(response) {  
+        var body = "";  
+        response.addListener("data", function(data) {  
+            body += data;  
+        });  
+  
+        response.addListener("end", function() {  
+            var _bs = JSON.parse(body);  
+            if(_bs.length > 0) {  
+               // api_emitter.emit("clients", clients);  
+							sys.puts("got backupsets");
+							backupsets = _bs; 
+            }  
+        });  
+    });  
+  
+    request.end();  
+} 
 
 
 
@@ -126,9 +146,12 @@ function get_backupsets() {
 get_accounts();
 get_dsclients();
 get_backupsets();
- 
+
+var listener = api_emitter.addListener("clients", function(clients) {  
+            accounts = clients;
+        });  
 //setInterval(get_tweets, 5000);
-server.listen(81);
+server.listen(443);
 
 // socket.io, I choose you
 // simplest chat application evar

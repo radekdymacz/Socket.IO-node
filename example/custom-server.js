@@ -180,7 +180,7 @@ io.on('connection', function(client){
 		 client.broadcast({clients:accounts,sessionid:message.sessionid,name:message.name});
 		 }
 
-    client.broadcast(message);
+    //client.broadcast(message);
   });
 
   client.on('disconnect', function(){

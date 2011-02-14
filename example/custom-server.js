@@ -177,7 +177,7 @@ io.on('connection', function(client){
 		}
 		if(message.action == "get" && message.recordType == "client"){
 		 //	io.clients[client.sessionId].send({clients:accounts});
-		 client.broadcast({clients:accounts,sessionid:message.sessionid});
+		 client.broadcast({clients:accounts,sessionid:message.sessionid,name:message.name});
 		 }
 
     client.broadcast(message);

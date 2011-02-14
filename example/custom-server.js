@@ -143,9 +143,9 @@ function get_backupsets() {
 
 
 // Cache data from API
-//get_accounts();
-//get_dsclients();
-//get_backupsets();
+get_accounts();
+get_dsclients();
+get_backupsets();
 
 var listener = api_emitter.addListener("clients", function(clients) {  
             accounts = clients;

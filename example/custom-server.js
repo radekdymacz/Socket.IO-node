@@ -14,11 +14,11 @@ var http = require('http')
 	,dsclients = []
 	,backupsets = [];
   var options = {
-          key: fs.readFileSync('/root/cert2/dbi_databarracks_com.key'),
-          cert: fs.readFileSync('/root/cert2/dbi_databarracks_com.crt')
+//          key: fs.readFileSync('/root/cert2/dbi_databarracks_com.key'),
+//          cert: fs.readFileSync('/root/cert2/dbi_databarracks_com.crt')
         };
    
-server = https.createServer(options,function(request, response){
+server = http.createServer(function(request, response){
   // your normal server code
   sys.log(request.connection.remoteAddress + ": " + request.method + " " + request.url);
 
@@ -143,15 +143,15 @@ function get_backupsets() {
 
 
 // Cache data from API
-get_accounts();
-get_dsclients();
-get_backupsets();
+//get_accounts();
+//get_dsclients();
+//get_backupsets();
 
 var listener = api_emitter.addListener("clients", function(clients) {  
             accounts = clients;
         });  
 //setInterval(get_tweets, 5000);
-server.listen(443);
+server.listen(4001);
 
 // socket.io, I choose you
 // simplest chat application evar

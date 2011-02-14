@@ -144,9 +144,9 @@ function get_backupsets() {
 
 
 // Cache data from API
-get_accounts();
-get_dsclients();
-get_backupsets();
+//get_accounts();
+//get_dsclients();
+//get_backupsets();
 
 var listener = api_emitter.addListener("clients", function(clients) {  
             accounts = clients;
@@ -159,50 +159,19 @@ server.listen(443);
 var io = io.listen(server)
   , buffer = [];
   
-io.on('connection', function(client){
+	io.on('connection', function(client){
+	  //client.send({ buffer: buffer });
+	  client.broadcast({ announcement: client.sessionId + ' connected' });
 
-  //client.send({ buffer: buffer });
-  //io.clients[client.sessionId].send({clients:accounts});
-  //io.clients[client.sessionId].send({dsclients:dsclients});
-  //io.clients[client.sessionId].send({bs:backupsets});
-  var  preload = {backupsets:backupsets,sessionid:client.sessionId };
-  client.send(preload);
-	
-  
-  client.on('message', function(message){
-   // var msg = { message: [client.sessionId, message] };
-   // buffer.push(msg);
-   // if (buffer.length > 15) buffer.shift();
-		if(message.action == "update" && message.recordType == "client"){
-			get_accounts();
-			client.broadcast(message);
-		}
-		if(message.action == "get" && message.recordType == "client"){
-		 //	io.clients[client.sessionId].send({clients:accounts});
-		  var answare = {clients:accounts,sessionid:message.sessionid,name:message.name };
-		  
-		  client.broadcast(answare);
-		 }
-		if(message.action == "get" && message.recordType == "dsclients"){
-		 //	io.clients[client.sessionId].send({clients:accounts});
-		  var answare = {dsclients:dsclients,sessionid:message.sessionid,name:message.name };
+	  client.on('message', function(message){
+	    //var msg = { message: [client.sessionId, message] };
+	    //buffer.push(msg);
+	    //if (buffer.length > 15) buffer.shift();
+	    var msg = message;
+	    client.broadcast(msg);
+	  });
 
-		  client.broadcast(answare);
-		 }
-		if(message.action == "get" && message.recordType == "backupsets"){
-		 //	io.clients[client.sessionId].send({clients:accounts});
-		  var answare = {backupsets:backupsets,sessionid:message.sessionid,name:message.name };
-
-		  client.broadcast(answare);
-		 }
-
-    //client.broadcast(message);
-  });
-
-  client.on('disconnect', function(){
-    client.broadcast({ announcement: client.sessionId + ' disconnected' });
-	//	io.connection.destroy();
-   
-   
-  });
+	  client.on('disconnect', function(){
+	    client.broadcast({ announcement: client.sessionId + ' disconnected' });
+	  });
 });

@@ -20,7 +20,7 @@ var http = require('http')
    
 server = https.createServer(options,function(request, response){
   // your normal server code
-  sys.log(request.connection.remoteAddress + ": " + request.method + " " + request.url);
+ // sys.log(request.connection.remoteAddress + ": " + request.method + " " + request.url);
   
 	var proxy = http.createClient(4000,"localhost")
 	  var proxy_request = proxy.request(request.method, request.url, request.headers);
@@ -184,6 +184,8 @@ io.on('connection', function(client){
 
   client.on('disconnect', function(){
     client.broadcast({ announcement: client.sessionId + ' disconnected' });
+		io.connection.destroy();
+   
    
   });
 });

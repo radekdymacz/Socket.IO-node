@@ -174,6 +174,7 @@ io.on('connection', function(client){
    // if (buffer.length > 15) buffer.shift();
 		if(message.action == "update" && message.recordType == "client"){
 			get_accounts();
+			client.broadcast(message);
 		}
 		if(message.action == "get" && message.recordType == "client"){
 		 //	io.clients[client.sessionId].send({clients:accounts});

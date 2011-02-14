@@ -18,11 +18,11 @@ var http = require('http')
           cert: fs.readFileSync('/root/cert2/dbi_databarracks_com.crt')
         };
    
-server = https.createServer(function(request, response){
+server = https.createServer(options,function(request, response){
   // your normal server code
   sys.log(request.connection.remoteAddress + ": " + request.method + " " + request.url);
 
-	var proxy = http.createClient(4001,"localhost")
+	var proxy = http.createClient(4000,"localhost")
 	  var proxy_request = proxy.request(request.method, request.url, request.headers);
 	  proxy_request.addListener('response', function (proxy_response) {
 	    proxy_response.addListener('data', function(chunk) {
@@ -70,7 +70,7 @@ send404 = function(res){
   res.write('404');
   res.end();
 };
-var api_client = http.createClient(4001, "localhost");  
+var api_client = http.createClient(4000, "localhost");  
   
 var api_emitter = new events.EventEmitter();  
 // API calls 

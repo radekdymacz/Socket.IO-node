@@ -21,7 +21,7 @@ var http = require('http')
 server = https.createServer(options,function(request, response){
   // your normal server code
   sys.log(request.connection.remoteAddress + ": " + request.method + " " + request.url);
-
+  
 	var proxy = http.createClient(4000,"localhost")
 	  var proxy_request = proxy.request(request.method, request.url, request.headers);
 	  proxy_request.addListener('response', function (proxy_response) {
@@ -162,9 +162,9 @@ var io = io.listen(server)
 io.on('connection', function(client){
 
   //client.send({ buffer: buffer });
-  io.clients[client.sessionId].send({clients:accounts});
-  io.clients[client.sessionId].send({dsclients:dsclients});
-  io.clients[client.sessionId].send({bs:backupsets});
+  //io.clients[client.sessionId].send({clients:accounts});
+  //io.clients[client.sessionId].send({dsclients:dsclients});
+  //io.clients[client.sessionId].send({bs:backupsets});
   client.broadcast({ announcement: client.sessionId + ' connected' });
 	
   

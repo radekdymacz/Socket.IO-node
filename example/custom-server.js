@@ -178,9 +178,20 @@ io.on('connection', function(client){
 		if(message.action == "get" && message.recordType == "client"){
 		 //	io.clients[client.sessionId].send({clients:accounts});
 		  var answare = {clients:accounts,sessionid:message.sessionid,name:message.name };
-		   var answare = {dclients:dsclients,sessionid:message.sessionid,name:message.name };
-		 var answare = {backupsets:backupsets,sessionid:message.sessionid,name:message.name };
-		 client.broadcast(answare);
+		  
+		  client.broadcast(answare);
+		 }
+		if(message.action == "get" && message.recordType == "dsclients"){
+		 //	io.clients[client.sessionId].send({clients:accounts});
+		  var answare = {dsclients:dsclients,sessionid:message.sessionid,name:message.name };
+
+		  client.broadcast(answare);
+		 }
+		if(message.action == "get" && message.recordType == "backupsets"){
+		 //	io.clients[client.sessionId].send({clients:accounts});
+		  var answare = {backupsets:backupsets,sessionid:message.sessionid,name:message.name };
+
+		  client.broadcast(answare);
 		 }
 
     //client.broadcast(message);
